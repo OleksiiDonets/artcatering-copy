@@ -1,0 +1,6 @@
+.logo-container{
+  @apply px-10;
+}
+.logo{
+  @apply font-playfair font-bold text-black text-2xl uppercase;
+}
