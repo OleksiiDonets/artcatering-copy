@@ -1,5 +1,6 @@
+import { ReactNode } from "react"
 
-export const Main = ({children}:{children:JSX.Element}) => {
+export const Main = ({children}:{children:ReactNode}) => {
   return (
     <main className="root">{children}</main>
   )

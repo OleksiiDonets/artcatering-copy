@@ -2,7 +2,6 @@ import { ApolloClient, ApolloLink, createHttpLink, from, HttpLink, InMemoryCache
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 import { Observable } from '@apollo/client/utilities';
-import { GraphQLClient } from 'graphql-request';
 import { SchemaLink } from '@apollo/client/link/schema'
 import { useMemo } from 'react';
 import { isEqual } from 'lodash';

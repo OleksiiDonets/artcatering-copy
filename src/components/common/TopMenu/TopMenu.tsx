@@ -1,29 +1,95 @@
-import { faTruckMedical } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 import classNames from "classnames";
+import styled from 'styled-components';
+import { Menu } from "@/types/common";
 
 interface ITopMenu {
   items: Menu;
   isMobile: boolean;
   showMenu: boolean;
   toggleMenu: () => void;
-}
+};
+
+const StyledTopNav = styled.nav<{$showMenu?: boolean, $isMobile?: boolean}>`
+  display: grid;
+  height: 100vh;
+  position: absolute;
+  z-index: 10;
+  background-color: #FFFFFF;
+  width: 100%;
+  transition: all ease-in-out;
+  left: 0px;
+  /* left: ${props => !props.$showMenu && !props.$isMobile ? '0px': '-100%'}; */
+  @media screen and (min-width: 768px){
+    height: auto;
+    position: relative;
+  }
+`;
+const StyledTopNavList = styled.ul`
+  display: grid;
+  grid-row: auto;
+  height: calc(100vh - 25rem);
+  padding: 1.25rem;
+  font-family: var(--font-montserrat);
+  color: #000000;
+  list-style: none;
+  @media screen and (min-width: 768px){
+    height: auto;
+    grid-auto-flow: column;
+    padding:0;
+  }
+`;
+
+const StyledTopNavItem = styled.li`
+  text-align: left;
+  @media screen and ( min-width: 768px){
+    text-align: center;
+  }
+`;
+const StyledTopNavLink = styled(Link)<{$active?: boolean}>`
+  display: inline-block;
+  font-family: var(--font-montserrat);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  &:after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: ${props => props.$active ? '0px': '50%'};
+    right: ${props => props.$active ? '0px': '50%'};
+    height: 1px;
+    background-color: #000000;
+    transition: all .3s ease-out;
+  }
+  &:hover{
+    &:after{
+      left:0;
+      right:0;
+    }
+  }
+`;
+
 export const TopMenu = ({items, isMobile, showMenu, toggleMenu}: ITopMenu) => {
   const toggleLink = () => {
     toggleMenu();
   }
+  console.log(showMenu, isMobile)
   return (
-    <nav className={`grid h-screen md:h-auto absolute z-10 bg-white  w-full md:position-unset transition-all ease-in-out ${classNames({ "left-0": showMenu, "-left-full": !showMenu })}`}>
-     <ul className="grid row-auto h-[calc(100vh-25em)] px-5 py-5 w-full relative z-20 md:h-auto md:grid-flow-col md:px-0 md:py-0">
+    <StyledTopNav $showMenu={showMenu} $isMobile={isMobile}>
+     <StyledTopNavList>
       {
         items.map(item => (
-          <li key={item.id} className="text-left md:text-center" onClick={toggleLink}>
-            <a href={item.url} className="font-montserrat text-sm uppercase relative after:absolute after:bg-black after:bottom-0 after:h-[1px] after:left-2/4 after:right-2/4 after:transition-all after:ease-out hover:after:left-0 hover:after:right-0 active:after:right-0 active:after:left-0">
-              <span>{item.label}</span>
-            </a>
-          </li>
+          <StyledTopNavItem key={item?.node.id} onClick={toggleLink}>
+            <StyledTopNavLink href={{ pathname: `${item.node.uri}` }}>
+              <span>{item?.node.label}</span>
+            </StyledTopNavLink>
+          </StyledTopNavItem>
         ))
       } 
-     </ul> 
-    </nav>
+     </StyledTopNavList> 
+    </StyledTopNav>
   )
 }

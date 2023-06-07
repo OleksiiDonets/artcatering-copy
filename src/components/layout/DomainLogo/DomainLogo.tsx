@@ -1,16 +1,31 @@
-import Link from "next/link"
+import Link from 'next/link'
+import styled from 'styled-components';
+
+const StyledLogo = styled.span`
+  font-weight: bold;
+  color: #000000;
+  font-family: var(--font-playfair);
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  text-transform: uppercase;
+
+  @media screen and ( min-width: 768px) {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+`;
 
 export const DomainLogo = ({ isHome = true}) => {
   if(isHome){
     return (
       <div>
-        <span className="font-playair font-bold text-black text-xl md:text-2xl uppercase">Art catering</span>
+        <StyledLogo>Art catering</StyledLogo>
       </div>
     )
   }
   return (
     <Link href='/'>
-        <span className="font-playfair font-bold text-black text-xl md:text-2xl uppercase">Art catering</span>
+        <StyledLogo>Art catering</StyledLogo>
     </Link>
   )
 }

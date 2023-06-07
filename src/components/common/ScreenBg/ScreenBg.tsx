@@ -1,6 +1,8 @@
-import { divide } from "lodash";
-import Image from "next/image";
-import { useRef } from "react";
+import { divide } from 'lodash';
+import Image from 'next/image';
+import { useRef } from 'react';
+import { ImageBg, VideoBg } from '@/types/common';
+import styled from 'styled-components'
 
 interface IScreenBg {
   items: {
@@ -9,32 +11,62 @@ interface IScreenBg {
     embedVideo?: string;
   }
 }
+const EmptyBgElement = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  z-index: -10;
+  object-fit: cover;
+  background-color: rgb(251 207 232);
+`;
+const IframeVideoWrap = styled.div`
+  width: 100vw;
+  height: 100vh;
+  z-index: -10;
+  object-fit: cover;
+`;
+const VideoElement = styled.video`
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  object-fit: cover;
+  z-index: -10;
+`;
+
+const ImageWrap = styled.div`
+  display: flex;
+  position: absolute;
+  z-index: -10;
+  img{
+    width: 100vw;
+  }
+`;
+
 export const ScreenBg = ({ items: { image, video, embedVideo } }: IScreenBg) =>{
   const ref = useRef(null);
-  
   if(!video || !embedVideo){ 
     return(
-        <div className="flex absolute -z-10">
+        <ImageWrap>
           <Image src={image?.sourceUrl} width={image?.mediaDetails.width} height={image?.mediaDetails.height} alt={image.altText ? image.altText : 'image'} className=" w-screen"/>
-        </div>
+        </ImageWrap>
     )
   } else if(video || !embedVideo) {
     return(
       <div className="video-wrap">
-        <video ref={ref} width="auto" autoPlay muted loop poster={image?.sourceUrl} className="w-screen h-screen absolute -z-10 object-cover">
+        <VideoElement ref={ref} width="auto" autoPlay muted loop poster={image?.sourceUrl}>
           <source src={video?.link} type={video.mimeType} />
-        </video>
+        </VideoElement>
       </div>
     )
   } else if(!video && embedVideo) {
     return(
-      <div className="video-wrap w-screen object-cover -z-10 h-screen">
+      <IframeVideoWrap>
         <iframe width="100%" height="100%" src={`${embedVideo}&autoplay=1&loop=1&start=1`} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-      </div>
+      </IframeVideoWrap>
     )
   }else {
     return (
-      <div className="flex bg-pink-200 w-full h-full -z-10 object-cover"></div>
+      <EmptyBgElement></EmptyBgElement>
     )
   }
 }

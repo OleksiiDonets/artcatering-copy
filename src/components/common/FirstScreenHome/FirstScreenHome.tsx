@@ -1,6 +1,8 @@
-import { ScreenBg } from "../ScreenBg/ScreenBg"
+import { ScreenBg } from '@/components/common/ScreenBg/ScreenBg';
+import { ImageBg, VideoBg } from '@/types/common';
+import styled from 'styled-components';
 
-interface IFirstScreen {
+export interface IFirstScreen {
   data: {
     firstScreenBackgrounds: {
       image: ImageBg;
@@ -11,22 +13,45 @@ interface IFirstScreen {
     firstScreenText: string;
     firstScreenTitle: string;
   }
-}
+};
+
+const ScreenWrap = styled.div`
+  position: relative;
+  height: 100vh;
+`;
+const TextWrap = styled.div`
+  position: absolute;
+  left: 50%;
+  transform: translateX( -50%);
+  font-family: var(--font-cormorant);
+  font-size: 1.5rem;
+  line-height: 2rem;
+  display: none;
+  h3,
+  h1{
+    font-size: 6rem;
+    line-height: 1;
+  }
+  span {
+    font-size: 3rem;
+    line-height: 1;
+  }
+`;
+
 export const FirstScreen = ({data}: IFirstScreen) => {
   const { firstScreenTitle,firstScreenSubtitle, firstScreenText, firstScreenBackgrounds } = data;
   return (
-    <div className="relative h-screen">
+    <ScreenWrap>
       <ScreenBg items={firstScreenBackgrounds}/>
-      <div className="content font-cormorant text-2xl text-white text-center absolute bottom-40 left-2/4 -translate-x-2/4 hidden">
+      <TextWrap >
         <div className="title">
-          <h1 className="text-8xl">{ firstScreenTitle}</h1>
-          <span className="text-5xl">{ firstScreenSubtitle }</span>
+          <h1>{ firstScreenTitle}</h1>
+          <span>{ firstScreenSubtitle }</span>
         </div>
-        <div className="text text-8xl">
+        <div>
           <h3>{ firstScreenText }</h3>
         </div>
-       
-      </div>
-    </div>
+      </TextWrap>
+    </ScreenWrap>
   )
 }

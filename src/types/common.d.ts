@@ -1,11 +1,15 @@
+import { Url } from "next/dist/shared/lib/router/router";
+
 interface IMenuItem{
-  url?: string;
-  label: string;
-  id?: string;
-  cssClasses: string[];
+  node: {
+    uri?: string | undefined;
+    label: string;
+    id?: string;
+    cssClasses?: string[];
+  }
 };
 
-type Menu = IMenuItem[];
+export type Menu = IMenuItem[];
 
 interface Icon {
   width: number;

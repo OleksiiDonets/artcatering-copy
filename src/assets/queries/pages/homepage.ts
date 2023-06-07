@@ -5,15 +5,6 @@ import IMAGE_FRAGMENT from '../fragments/image';
 export const GET_HOMEPAGE = gql`
   query getHomepage {
     page(id: "homepage", idType: URI) {
-      template {
-        ... on DefaultTemplate {
-          contacts {
-            phoneNumber
-            emailAdress
-            schedule
-          }
-        }
-      }
       homeFirstScreen {
         firstScreenSubtitle
         firstScreenText
@@ -75,6 +66,5 @@ export const GET_HOMEPAGE = gql`
         }
       }
     }
-    ${MENU_FRAGMENT}
   }
 ` 

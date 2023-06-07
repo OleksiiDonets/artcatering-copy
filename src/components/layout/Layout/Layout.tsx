@@ -1,9 +1,13 @@
-import { Main } from "../Main/Main"
-import { Header } from "../Header/Header"
-import { SEO } from "../SEO/Seo"
-import { Footer } from "../Footer/Footer"
-import { ReactNode, useEffect } from "react"
+import { FC } from "react"
+
+import { Main } from '@/components/layout/Main/Main';
+import { Header } from '@/components/layout/Header/Header';
+import { SEO } from '@/components/layout/SEO/Seo';
+import { Footer } from '@/components/layout/Footer/Footer';
+import { Menu, IContacts } from "@/types/common";
+import { ReactElement, ReactNode, useEffect } from "react"
 import { useRouter } from "next/router"
+
 
 interface ILayout {
   children?: JSX.Element[];
@@ -14,7 +18,7 @@ interface ILayout {
   };
   contacts: IContacts;
 };
-export const Layout = ({contacts, menus, children }: ILayout) => {
+export const Layout:FC<ILayout> = ({contacts, menus, children }) => {
   
   // useEffect(() => {
   //   let origin = sessionStorage.getItem('__artcateringOriginPage');
@@ -27,10 +31,6 @@ export const Layout = ({contacts, menus, children }: ILayout) => {
   // }, [])
   return (
     <>
-      <SEO/>
-      <Header topMenu={menus.header} socialMenu={menus.social} phone={contacts.phoneNumber} />
-      <Main>{ children }</Main>
-      <Footer menu={menus.footer} socialMenu={menus.social} contacts={contacts}/>
     </>
   )
 }

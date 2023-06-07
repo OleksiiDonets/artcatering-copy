@@ -1,8 +1,9 @@
 import { gql } from "@apollo/client";
 
-export const GET_SHOPPAGE = gql`
+export const GET_FOODBOX_PAGE = gql`
   query getShopPage{
     page(id: "foodbox", idType: URI){
+      title
       template {
         ... on DefaultTemplate {
           contacts {
@@ -15,6 +16,7 @@ export const GET_SHOPPAGE = gql`
       selectCategory {
         selectCategory {
           name
+          slug
           products{
             nodes {
               id
@@ -24,7 +26,6 @@ export const GET_SHOPPAGE = gql`
           }
         }
       }
- 
     }
   }
 `

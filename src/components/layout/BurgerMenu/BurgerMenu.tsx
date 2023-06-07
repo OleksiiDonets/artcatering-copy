@@ -1,20 +1,36 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import styled from 'styled-components';
 
 interface IBurgerMenu {
   isMobile: boolean;
   showMenu: boolean;
   toggleMenu: () => void;
 }
+
+const StyledButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0.5rem;
+  border:none;
+  background-color: #FFFFFF;
+  cursor: pointer;
+`;
+
+const StyledIcon = styled(FontAwesomeIcon)`
+  transition: all ease-in;
+`;
+
 export const BurgerMenu = ({isMobile, showMenu , toggleMenu}: IBurgerMenu) => {
   if(isMobile){
     return (
-      <button type="button" onClick={toggleMenu} className="flex content-center items-center mr-2">
+      <StyledButton type="button" onClick={toggleMenu}>
         {showMenu ? (
-          <FontAwesomeIcon color='#000000' icon="xmark" size='2x'  className="transition-all ease-in"/>
+          <StyledIcon color='#000000' icon="xmark" size='2x'/>
         ) : (
-          <FontAwesomeIcon color='#000000' icon="bars" size='lg' className="transition-all ease-in"/>
+          <StyledIcon color='#000000' icon="bars" size='lg'/>
         )}
-      </button>
+      </StyledButton>
     )
   }
   return null

@@ -1,31 +1,28 @@
 export default `
-  headerMenu: menu(id: "headerMenu", idType: NAME) {
-    menuItems {
-      nodes {
+  headerMenu: menuItems(where: { location: PRIMARY, parentId: "0"}) {
+    edges{ 
+      node {
         id
-        url
         label
-        cssClasses
+        uri
       }
     }
   }
-  socialMenu: menu(id: "socialMenu", idType: NAME) {
-    menuItems {
-      nodes {
+  socialMenu: menuItems(where: { location: ADDITIONAL_MENU, parentId: "0"}) {
+    edges{ 
+      node {
         id
-        url
         label
-        cssClasses
+        uri
       }
     }
   }
-  footerMenu: menu(id: "footerMenu", idType: NAME) {
-    menuItems {
-      nodes {
+  footerMenu: menuItems(where: { location: FOOTER, parentId: "0"}) {
+    edges{ 
+      node {
         id
-        url
         label
-        cssClasses
+        uri
       }
     }
   }
