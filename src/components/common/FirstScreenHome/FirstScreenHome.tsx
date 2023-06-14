@@ -1,11 +1,10 @@
 import { ScreenBg } from '@/components/common/ScreenBg/ScreenBg';
-import { ImageBg, VideoBg } from '@/types/common';
-import styled from 'styled-components';
-
+import { ImageItem, VideoBg} from '@/types/common';
+import { ScreenWrap, TextWrap } from '@/components/common/FirstScreenHome/FirstScreenHome.style';
 export interface IFirstScreen {
   data: {
     firstScreenBackgrounds: {
-      image: ImageBg;
+      image: ImageItem;
       video: VideoBg;
       embedVideo: string;
     }
@@ -14,29 +13,6 @@ export interface IFirstScreen {
     firstScreenTitle: string;
   }
 };
-
-const ScreenWrap = styled.div`
-  position: relative;
-  height: 100vh;
-`;
-const TextWrap = styled.div`
-  position: absolute;
-  left: 50%;
-  transform: translateX( -50%);
-  font-family: var(--font-cormorant);
-  font-size: 1.5rem;
-  line-height: 2rem;
-  display: none;
-  h3,
-  h1{
-    font-size: 6rem;
-    line-height: 1;
-  }
-  span {
-    font-size: 3rem;
-    line-height: 1;
-  }
-`;
 
 export const FirstScreen = ({data}: IFirstScreen) => {
   const { firstScreenTitle,firstScreenSubtitle, firstScreenText, firstScreenBackgrounds } = data;

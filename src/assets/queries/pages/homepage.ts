@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client';
-import MENU_FRAGMENT from '../fragments/menus';
-import IMAGE_FRAGMENT from '../fragments/image';
+import IMAGE_FRAGMENT from '@/assets/queries/fragments/image';
 
 export const GET_HOMEPAGE = gql`
   query getHomepage {

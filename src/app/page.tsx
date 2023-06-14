@@ -3,10 +3,10 @@ import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
 import Image from 'next/image';
 import { SwiperSlide } from 'swiper/react';
 import { GET_HOMEPAGE } from '@/assets/queries/pages/homepage';
-import { FirstScreen, IFirstScreen } from '@/components/common/FirstScreenHome/FirstScreenHome';
-import { Carousel, ICarousel } from '@/components/common/Carousel/Carousel';
+import { FirstScreen } from '@/components/common/FirstScreenHome/FirstScreenHome';
+import { Carousel } from '@/components/common/Carousel/Carousel';
 import { Wysiwyg } from '@/components/common/Wysiwyg/Wysiwyg';
-import { CarouselItem, ImageBg, VideoBg, VideoItem } from '@/types/common';
+import { CarouselItem, ImageItem, VideoBg, VideoItem } from '@/types/common';
 import { EventsVideo } from '@/components/common/EventsVideo/EventsVideo';
 import styled from 'styled-components';
 
@@ -14,7 +14,7 @@ interface IHome {
   page: {
     homeFirstScreen:{
       firstScreenBackgrounds: {
-        image: ImageBg;
+        image: ImageItem;
         video: VideoBg;
         embedVideo: string;
       }

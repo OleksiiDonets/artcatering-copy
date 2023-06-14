@@ -1,5 +1,4 @@
 'use client';
-
 import { Playfair_Display, Montserrat, Cormorant_Garamond } from 'next/font/google'
 import { createGlobalStyle } from 'styled-components';
 
@@ -40,6 +39,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     background-color: #ffffff;
+    font-family: var(--font-montserrat);
   }
 
   a {

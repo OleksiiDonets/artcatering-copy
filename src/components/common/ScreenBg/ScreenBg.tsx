@@ -1,46 +1,15 @@
 import { divide } from 'lodash';
 import Image from 'next/image';
 import { useRef } from 'react';
-import { ImageBg, VideoBg } from '@/types/common';
-import styled from 'styled-components'
-
+import { ImageItem, VideoBg} from '@/types/common';
+import { ImageWrap, VideoElement, IframeVideoWrap, EmptyBgElement } from '@/components/common/ScreenBg/ScreenBg.style';
 interface IScreenBg {
   items: {
-    image: ImageBg;
+    image: ImageItem;
     video: VideoBg;
     embedVideo?: string;
   }
 }
-const EmptyBgElement = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-  z-index: -10;
-  object-fit: cover;
-  background-color: rgb(251 207 232);
-`;
-const IframeVideoWrap = styled.div`
-  width: 100vw;
-  height: 100vh;
-  z-index: -10;
-  object-fit: cover;
-`;
-const VideoElement = styled.video`
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  object-fit: cover;
-  z-index: -10;
-`;
-
-const ImageWrap = styled.div`
-  display: flex;
-  position: absolute;
-  z-index: -10;
-  img{
-    width: 100vw;
-  }
-`;
 
 export const ScreenBg = ({ items: { image, video, embedVideo } }: IScreenBg) =>{
   const ref = useRef(null);

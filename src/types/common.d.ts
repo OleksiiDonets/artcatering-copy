@@ -1,5 +1,3 @@
-import { Url } from "next/dist/shared/lib/router/router";
-
 interface IMenuItem{
   node: {
     uri?: string | undefined;
@@ -29,12 +27,12 @@ interface IContacts {
 }
 
 
-interface VideoBg {
+export interface VideoBg{
   link: string;
   mediaDetails: MediaDetails;
   mimeType: string;
 }
-interface ImageBg {
+export interface ImageItem {
   sourceUrl: string;
   altText: string;
   mediaDetails: MediaDetails;
@@ -53,4 +51,37 @@ interface CarouselItem {
 interface VideoItem {
   videoLink: string;
   description: string;
+}
+
+interface BannerItem {
+  shopBannersImg: ImageItem;
+  bannerImageMobile: ImageItem;
+  shopBannersLink?: string;
+}
+
+export interface ShopBanner {
+  shopBanners: BannerItem[];
+}
+
+export interface SimpleProduct {
+  id: string;
+  databaseId: string;
+  name: string;
+  shortDescription: string;
+  uri: string;
+  price: string;
+  image: {
+    sourceUrl: string;
+    mediaDetails: {
+      sizes: MediaDetails[];
+    }
+  }
+}
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  products: {
+    nodes: SimpleProduct[]; 
+  }
 }
