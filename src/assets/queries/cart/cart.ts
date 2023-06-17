@@ -3,42 +3,57 @@ import { gql } from "@apollo/client";
 export const GET_CART = gql`
   query getCart{
     cart {
-      contents {
-        nodes {
-          key
-          product {
-            node {
+    contents {
+      itemCount
+      nodes {
+        key
+        product {
+          node {
+            ... on SimpleProduct{
+              price
+            }
+            id
+            databaseId
+            name
+            uri
+            image {
               id
-              databaseId
-              name
+              sourceUrl
+              srcSet
+              altText
+              title
             }
           }
-          quantity
-          total
-          subtotal
-          subtotalTax
         }
+        quantity
+        total
+        subtotal
+        subtotalTax
       }
-      total
     }
+    subtotal
+    total
+    discountTax
+    discountTotal
+  }
   }
 `;
 
 export const ADD_TO_CART = gql`
   mutation ($input: AddToCartInput!) {
     addToCart(input: $input) {
-     cartItem {
-      quantity
-      total
-      product {
-        node {
-          name
-          image {
-            sourceUrl(size: THUMBNAIL)
+      cartItem {
+        quantity
+        total
+        product {
+          node {
+            name
+            image {
+              sourceUrl(size: THUMBNAIL)
+            }
           }
         }
       }
-    }
     }
   }
 `;

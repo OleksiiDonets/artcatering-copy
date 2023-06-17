@@ -12,47 +12,59 @@ interface ICartProvider {
     | null
     | undefined;
 };
-
-interface Image {
-  sourceUrl?: string;
-  srcSet?: string;
+interface ProductImage {
   title: string;
+  altText: string;
+  sourceUrl: string;
+}
+export interface CartProduct {
+  key: string;
+  quantity: number;
+  subTotal: string;
+  total: string;
+  discountTax?: string;
+  discountTotal?: string;
+  product: {
+    node:{
+      databaseId: number;
+      id: string;
+      name: string;
+      uri: string;
+      price: string;
+      image: ProductImage;
+    };
+  }
 }
 
-export interface Product {
-  cartKey: string;
-  name: string;
-  qty: number;
-  price: number;
-  totalPrice: string;
-  image: Image;
-  productId: number;
+export interface CartObject {
+  contents:{
+    itemCount: number;
+    nodes: CartProduct[];
+  };
+  subTotal: string;
+  discountTax: string;
+  discountTotal: string;
+  total:string;
 }
 
-export interface RootObject {
-  products: Product[];
-  totalProductsCount: number;
-  totalProductsPrice: number;
-}
+export type TCartObject = CartObject | string | null | undefined;
 
-export type TRootObject = RootObject | string | null | undefined;
-
-export type TRootObjectNull = RootObject | null | undefined;
+export type TCartObjectNull = CartObject | null | undefined;
 
 interface ICartContext {
-  cart: RootObject | null | undefined;
-  setCart: React.Dispatch<React.SetStateAction<TRootObjectNull>>;
+  cartValue: CartObject | null | undefined;
+  setCartValue: React.Dispatch<React.SetStateAction<TCartObjectNull>>;
 }
 
 const CartState = {
-  cart: null,
-  setCart: () => {},
+  cartValue: null,
+  setCartValue: () => {},
 };
 
 export const CartContext = createContext<ICartContext>(CartState);
 
 export const CartProvider = ({ children }:ICartProvider) => {
-  const [ cart, setCart ] = useState<RootObject | null>();
+  const [ cartValue, setCartValue ] = useState<CartObject | null>();
 
     useEffect(() => {
     if (typeof window === 'undefined') {
@@ -61,13 +73,13 @@ export const CartProvider = ({ children }:ICartProvider) => {
     const localCartData:string | null = localStorage.getItem('woocommerce-cart');
 
     if (localCartData) {
-      const cartData: RootObject = JSON.parse(localCartData);
-      setCart(cartData);
+      const cartData:CartObject = JSON.parse(localCartData);
+      setCartValue(cartData);
     }
   }, []);
 
   return (
-    <CartContext.Provider value={{cart, setCart}}>
+    <CartContext.Provider value={{cartValue, setCartValue}}>
       { children }
     </CartContext.Provider>
   )

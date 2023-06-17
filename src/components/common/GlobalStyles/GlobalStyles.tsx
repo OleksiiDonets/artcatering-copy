@@ -24,17 +24,20 @@ const GlobalStyle = createGlobalStyle`
     --font-playfair: ${playfair.style.fontFamily};
     --footer-bg: #f3f3f3;
     --pink-color: #f6dddf;
+    --gray-color: #888888;
   }
   * {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    font-weight: normal;
   }
 
   html,
   body {
     max-width: 100vw;
     overflow-x: hidden;
+    scroll-behavior: smooth;
   }
 
   body {

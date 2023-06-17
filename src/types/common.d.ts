@@ -85,3 +85,9 @@ export interface Category {
     nodes: SimpleProduct[]; 
   }
 }
+
+export interface ICartDocument {
+  customer: {
+    sessionToken: string;
+  }
+}

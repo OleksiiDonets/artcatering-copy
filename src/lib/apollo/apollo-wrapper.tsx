@@ -1,18 +1,45 @@
 'use client';
 import { ApolloClient, ApolloLink, HttpLink, SuspenseCache } from '@apollo/client';
 import { ApolloNextAppProvider, NextSSRInMemoryCache, SSRMultipartLink } from '@apollo/experimental-nextjs-app-support/ssr';
-import { API_URL } from '@/config';
-import { middleware } from '@/assets/queries/api';
+import { GetCartDocument } from '@/assets/queries/wooQueries/getCartDocument';
+import { GraphQLClient } from 'graphql-request';
+import { ICartDocument } from '@/types/common';
 
-export const middlware = new ApolloLink((operation, forward) => {
-  const session = process.browser ? localStorage.getItem('woo-sesion') : null;
+async function fetchSessionToken() {
+  let sessionToken;
+  try {
+    const graphQLClient = new GraphQLClient('http://test-catering.local/graphql');
+    const cartData:ICartDocument = await graphQLClient.request(GetCartDocument);
+
+    sessionToken = cartData.customer.sessionToken;
+    if(!sessionToken) {
+      throw new Error('Failed to retrieve a new session token');
+    }
+  }
+  catch (error) {
+    console.error(error);
+  }
+  return sessionToken
+};
+
+const tokenValue = fetchSessionToken().then(value => value );
+
+export const middleware = new ApolloLink((operation, forward) => {
+  let session = typeof window !== 'undefined' ? localStorage.getItem('woo-sesion') : undefined;
+
   if(session) {
     operation.setContext(() => ({
       headers: {
         'woocommerce-session': `Session ${session}`
       }
     }))
-  }
+  }else  {
+   operation.setContext(() => ({
+      headers: {
+        'woocommerce-session': `Session ${tokenValue}`
+      }
+    }))
+  }  
   return forward(operation);
 });
 
@@ -37,7 +64,6 @@ export const afterware = new ApolloLink((operation, forward) => forward(operatio
 function makeClient(){
   const httpLink = new HttpLink({
     uri: 'http://test-catering.local/graphql',
-    fetch
   });
 
   return new ApolloClient({

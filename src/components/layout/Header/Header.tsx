@@ -43,6 +43,7 @@ export const Header = () => {
       }
     }
   } } = useSuspenseQuery<IHeader>(GET_MENUS);
+  
   const [ showMenu, setShowMenu ] = useState(false);
   const { width: windowWidth } = useWindowSize();
   const isMobile = windowWidth ? windowWidth < 768 : false;
@@ -57,9 +58,11 @@ export const Header = () => {
           <SocContainer>
             <Socials items={menuSocItems}/>
           </SocContainer>
-          <BurgerContainer>
-            <BurgerMenu isMobile={isMobile} showMenu={showMenu} toggleMenu={toggleMenu}/>
-          </BurgerContainer>
+          {
+            pathname !== '/order' && <BurgerContainer>
+              <BurgerMenu isMobile={isMobile} showMenu={showMenu} toggleMenu={toggleMenu}/>
+            </BurgerContainer>
+          }
           <div>
             <DomainLogo isHome={pathname === '/'}/>
           </div>
@@ -73,11 +76,13 @@ export const Header = () => {
           </div>
         </TopHeaderContainer>
       </Container>
-      <Container>
-        <MenuContainer $showMenu={showMenu}>
-          <TopMenu items={menuHeadItem} isMobile={isMobile} showMenu={showMenu} toggleMenu={toggleMenu}/>
-        </MenuContainer>
-      </Container>
+      {
+        pathname !== '/order' && <Container>
+          <MenuContainer $showMenu={showMenu}>
+            <TopMenu items={menuHeadItem} isMobile={isMobile} showMenu={showMenu} toggleMenu={toggleMenu}/>
+          </MenuContainer>
+        </Container>
+      }
     </header>
   )
 }
