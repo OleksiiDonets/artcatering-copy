@@ -91,3 +91,85 @@ export interface ICartDocument {
     sessionToken: string;
   }
 }
+interface CartProductImage {
+  title: string;
+  altText: string;
+  sourceUrl: string;
+}
+export interface CartProduct {
+  key: string;
+  quantity: number;
+  subTotal: string;
+  total: string;
+  discountTax?: string;
+  discountTotal?: string;
+  product: {
+    node:{
+      databaseId: number;
+      id: string;
+      name: string;
+      uri: string;
+      price: string;
+      image: CartProductImage;
+    };
+  }
+};
+
+export interface CartObject {
+  contents:{
+    itemCount: number;
+    nodes: CartProduct[];
+  };
+  subTotal: string;
+  discountTax: string;
+  discountTotal: string;
+  total:string;
+};
+
+type TUpdatedItems = { key: string; quantity: number }[];
+
+export interface IUpdateCartItem {
+  key: string;
+  quantity: number;
+}
+
+export interface IUpdateCartInput {
+  clientMutationId: string;
+  items: IUpdateCartItem[];
+}
+
+export interface IUpdateCartVariables {
+  input: IUpdateCartInput;
+}
+
+export interface IUpdateCartRootObject {
+  variables: IUpdateCartVariables;
+}
+
+export interface IPaymentMethod {
+  description: string;
+  id: string;
+  title: string;
+}
+
+export interface IShippingMethod {
+  label: string;
+  methodId: string;
+}
+
+export interface IOrderMethods {
+  paymentGateways: {
+    nodes: IPaymentMethod[];
+  }
+  cart: {
+    availableShippingMethods: {
+      rates: IShippingMethod[];
+    }[];
+  }
+};
+
+export type TRadios = {
+  title: string;
+  description?: string;
+  methodId: string;
+}

@@ -5,6 +5,7 @@ import { CartWrapper, CartContent, CartCount } from "./ShoppingCart.style";
 
 export const ShoppingCart = () => {
   const { cartValue } = useContext(CartContext);
+
   if(!cartValue?.contents.itemCount) return <></>
   return ( 
     <CartWrapper>

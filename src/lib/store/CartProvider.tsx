@@ -1,6 +1,6 @@
 'use client';
-import { useState, useEffect, createContext, ReactElement, JSXElementConstructor, ReactFragment, ReactPortal } from "react"
-
+import { useState, useEffect, createContext, ReactElement, JSXElementConstructor, ReactFragment, ReactPortal } from 'react';
+import { CartObject } from '@/types/common';
 interface ICartProvider {
   children:
     | string
@@ -12,40 +12,7 @@ interface ICartProvider {
     | null
     | undefined;
 };
-interface ProductImage {
-  title: string;
-  altText: string;
-  sourceUrl: string;
-}
-export interface CartProduct {
-  key: string;
-  quantity: number;
-  subTotal: string;
-  total: string;
-  discountTax?: string;
-  discountTotal?: string;
-  product: {
-    node:{
-      databaseId: number;
-      id: string;
-      name: string;
-      uri: string;
-      price: string;
-      image: ProductImage;
-    };
-  }
-}
 
-export interface CartObject {
-  contents:{
-    itemCount: number;
-    nodes: CartProduct[];
-  };
-  subTotal: string;
-  discountTax: string;
-  discountTotal: string;
-  total:string;
-}
 
 export type TCartObject = CartObject | string | null | undefined;
 

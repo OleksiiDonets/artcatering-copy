@@ -7,7 +7,7 @@ import { useMemo } from 'react';
 import { isEqual } from 'lodash';
 import { API_URL } from '@/config';
 import  merge  from 'deepmerge';
-import { GetCartDocument } from './wooQueries/getCartDocument';
+import { GetCartDocument } from './wooQueries';
 
 export const APOLLO_STATE_PROP_NAME = "__APOLLO_STATE__";
 

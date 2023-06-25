@@ -1,7 +1,7 @@
 'use client';
 import { ApolloClient, ApolloLink, HttpLink, SuspenseCache } from '@apollo/client';
 import { ApolloNextAppProvider, NextSSRInMemoryCache, SSRMultipartLink } from '@apollo/experimental-nextjs-app-support/ssr';
-import { GetCartDocument } from '@/assets/queries/wooQueries/getCartDocument';
+import { GetCartDocument } from '@/assets/queries/wooQueries';
 import { GraphQLClient } from 'graphql-request';
 import { ICartDocument } from '@/types/common';
 
@@ -67,6 +67,7 @@ function makeClient(){
   });
 
   return new ApolloClient({
+    connectToDevTools: true,
     cache: new NextSSRInMemoryCache(),
     link: typeof window === "undefined" ? ApolloLink.from([
           new SSRMultipartLink({

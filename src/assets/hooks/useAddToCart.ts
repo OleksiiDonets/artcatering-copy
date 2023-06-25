@@ -17,7 +17,6 @@ const useAddToCart = (product: SimpleProduct) => {
   const { data, refetch } = useQuery(GET_CART,{
    notifyOnNetworkStatusChange: true,
     onCompleted: (data) => {
-
       if(typeof window !== 'undefined') {
         localStorage.setItem('woocommerce-cart', JSON.stringify(data.cart));
         setCartValue(data.cart);
